@@ -1,0 +1,76 @@
+.Segment-On {
+    background-color: red;
+    border: 1px solid rgb(196, 28, 28);
+    border-radius: 50%;
+}
+
+.Segment-Off {
+    background-color: transparent;
+    border: 2px solid rgb(90, 23, 23);
+    border-radius: 50%;
+}
+
+.Counter {
+    width: 30px;
+    height: 50px;
+    position: relative;
+    background-color: black;
+}
+
+
+.segment-a {
+    width: 17px;
+    height: 2px;
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
+
+.segment-b {
+    height: 17px;
+    width: 2px;
+    position: absolute;
+    top: 5px;
+    right: 3px;
+}
+
+.segment-c {
+    height: 17px;
+    width: 2px;
+    position: absolute;
+    top: 23px;
+    right: 3px;
+}
+
+.segment-d {
+    width: 17px;
+    height: 2px;
+    position: absolute;
+    top: 39px;
+    left: 5px;
+}
+
+.segment-e {
+    height: 17px;
+    width: 2px;
+    position: absolute;
+    top: 23px;
+    left: 3px;
+}
+
+.segment-f {
+    height: 17px;
+    width: 2px;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+}
+
+.segment-g {
+    width: 17px;
+    height: 2px;
+    position: absolute;
+    top: 21px;
+    left: 5px;
+}
+

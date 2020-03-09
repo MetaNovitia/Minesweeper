@@ -1,0 +1,44 @@
+.GameWindow {
+    background-color: gray;
+    width: 800px;
+    height: 510px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.TopMenu {
+    width: 760px;
+    height: 50px;
+    margin-bottom: 10px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.Grid {
+    width: 770px;
+    height: 400px;
+}
+
+.game-background-original-outer {
+    background-color: gray;
+    border: 2px solid white;
+    border-right-color: rgb(51, 45, 45);
+    border-bottom-color: rgb(51, 45, 45);
+}
+
+.game-background-original-inner {
+    background-color: gray;
+    border: 2px solid white;
+    border-top-color: rgb(51, 45, 45);
+    border-left-color: rgb(51, 45, 45);
+}
