@@ -7,15 +7,26 @@ function TopMenu(props) {
     const [time, setTime] = useState(0);
 
 	// increments timer per second
-    let timerId = setTimeout(() => {
-        setTime(Math.min(time+1,999));
-    }, 1000);
+	var timerId=0;
+	if(props.isStarted) {
+		timerId = setTimeout(() => {
+			setTime(Math.min(time+1,999));
+		}, 1000);
+	}
+
+	function restart(){
+		if(props.isStarted){
+			clearTimeout(timerId);
+			setTime(0);
+			props.restart();
+		}
+	}
 
     return (
         <div className="TopMenu game-background-original-inner">
             <CounterGroup count={props.number}/>
             <div style={{width:"600px"}}>
-				<button className="PlayButton"/>
+				<button className="PlayButton" onClick={restart}/>
             </div>
             <CounterGroup count={time}/>
         </div>

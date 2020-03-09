@@ -13,7 +13,7 @@ const seven_seg = {
 
 function Segment(props) {
 
-    var is_on = seven_seg[props.position][props.count] == 1 ? "On" : "Off";
+    var is_on = seven_seg[props.position][props.count] === 1 ? "On" : "Off";
     return (
         <div className={`Segment-${is_on} segment-${props.position}`} />
     );
