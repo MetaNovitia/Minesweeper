@@ -29,6 +29,12 @@
     height: 400px;
 }
 
+.PlayButton {
+	background-color: rgb(75, 69, 69);
+	width: 40px;
+	height: 40px;
+}
+
 .game-background-original-outer {
     background-color: gray;
     border: 2px solid white;

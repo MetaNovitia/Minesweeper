@@ -1,27 +1,34 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import '../GameWindow.css';
 import Counter from './Counter/Counter'
 
-function TopMenu() {
+function TopMenu(props) {
 
-    const [count, setCount] = useState(0);
+    const [time, setTime] = useState(0);
 
+	// increments timer per second
     let timerId = setTimeout(() => {
-        setCount(count+1);
+        setTime(Math.min(time+1,999));
     }, 1000);
 
     return (
         <div className="TopMenu game-background-original-inner">
-            <Counter count={0}/>
-            <Counter count={1}/>
-            <Counter count={2}/>
+            <CounterGroup count={props.number}/>
             <div style={{width:"600px"}}>
-
+				<button className="PlayButton"/>
             </div>
-            <Counter count={Math.floor(count/100)%10}/>
-            <Counter count={Math.floor(count/10)%10}/>
-            <Counter count={Math.floor(count/1)%10}/>
+            <CounterGroup count={time}/>
         </div>
+    );
+}
+
+function CounterGroup(props) {
+    return (
+        <>
+            <Counter count={Math.floor(props.count/100)%10}/>
+            <Counter count={Math.floor(props.count/10)%10}/>
+            <Counter count={Math.floor(props.count/1)%10}/>
+        </>
     );
 }
 
