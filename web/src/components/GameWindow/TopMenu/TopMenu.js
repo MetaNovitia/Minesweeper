@@ -14,6 +14,8 @@ function TopMenu(props) {
 		}, 1000);
 	}
 
+	console.log(timerId);
+
 	function restart(){
 		if(props.isStarted){
 			clearTimeout(timerId);
@@ -31,7 +33,9 @@ function TopMenu(props) {
 				<button 
 					className={`PlayButton game-background-outer-${props.theme}`} 
 					onClick={restart}>
-						<img alt="" src={require(`../../../assets/${props.theme}/play.png`)} />
+						<img 
+							alt="" draggable={false}
+							src={require(`../../../assets/${props.theme}/play.png`)} />
 				</button>
             </div>
             <CounterGroup right count={time} theme={props.theme}/>

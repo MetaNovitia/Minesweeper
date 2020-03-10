@@ -1,20 +1,12 @@
 export function randomMineGenerator(height, width, number) {
 
 	var mines = [];
-	var grid = [];
-	var i, j, row, col;
-
-	for (i=0; i<height; i++){
-		grid.push([]);
-		for(j=0; j<width; j++){
-			grid[i].push(0);
-		}
-	}
+	var grid = emptyGrid(height, width);
+	var i, row, col;
 
 	for (i=0; i<number; i++){
 		row = Math.floor(Math.random() * (height));
 		col = Math.floor(Math.random() * (width));
-
 
 		while (grid[row][col]===-1) {
 			row = Math.floor(Math.random() * (height));
@@ -27,6 +19,17 @@ export function randomMineGenerator(height, width, number) {
 
 	fixCounts(grid);
 	
+	return grid;
+}
+
+export function emptyGrid(height, width) {
+	var grid = [];
+	for (var i=0; i<height; i++){
+		grid.push([]);
+		for(var j=0; j<width; j++){
+			grid[i].push(0);
+		}
+	}
 	return grid;
 }
 
