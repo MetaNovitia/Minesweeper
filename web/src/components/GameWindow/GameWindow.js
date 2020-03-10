@@ -3,9 +3,11 @@ import './GameWindow.css';
 import TopMenu from './TopMenu/TopMenu'
 import Grid from './Grid/Grid';
 
-function GameWindow() {
+const cell_size=20
 
-	const [numberOfMinesLeft, setnumberOfMinesLeft] = useState(99);
+function GameWindow(props) {
+
+	const [numberOfMinesLeft, setnumberOfMinesLeft] = useState(props.mines);
 	const [isStarted, setStart] = useState(false);
 
 	function restart() {
@@ -14,10 +16,16 @@ function GameWindow() {
 	}
 
 	return (
-		<div className="GameWindow game-background-original-outer">
-			<TopMenu number={numberOfMinesLeft} restart={restart} isStarted={isStarted}/>
-			<Grid />
-			<button onClick={() => setStart(true)}/>
+		<div className={`GameWindow game-background-outer-${props.theme}`}>
+			<TopMenu 
+				number={numberOfMinesLeft} theme={props.theme}
+				restart={restart} isStarted={isStarted}
+				width={props.width * cell_size}/>
+			<Grid 
+				theme={props.theme} 
+				height={props.height} width={props.width} cell_size={cell_size}
+				mines={props.mines} setMines={setnumberOfMinesLeft}/>
+			{/* <button onClick={() => setStart(true)}/> */}
 		</div>
 	);
 }

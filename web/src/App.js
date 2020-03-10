@@ -3,13 +3,13 @@ import GameWindow from './components/GameWindow/GameWindow';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <div className="AppContent">
-        <GameWindow />
-      </div>
-    </div>
-  );
+	return (
+		<div className="App">
+			<div className="AppContent">
+				<GameWindow theme="original" height={16} width={30} mines={99}/>
+			</div>
+		</div>
+	);
 }
 
 export default App;

@@ -23,23 +23,31 @@ function TopMenu(props) {
 	}
 
     return (
-        <div className="TopMenu game-background-original-inner">
-            <CounterGroup count={props.number}/>
-            <div style={{width:"600px"}}>
-				<button className="PlayButton" onClick={restart}/>
+		<div 
+			style={{width:`${props.width}px`}}
+			className={`TopMenu game-background-inner-${props.theme}`}>
+            <CounterGroup count={props.number} theme={props.theme}/>
+            <div style={{width:"20%"}}>
+				<button 
+					className={`PlayButton game-background-outer-${props.theme}`} 
+					onClick={restart}>
+						<img src={require(`../../../assets/${props.theme}/play.png`)} />
+				</button>
             </div>
-            <CounterGroup count={time}/>
+            <CounterGroup right count={time} theme={props.theme}/>
         </div>
     );
 }
 
 function CounterGroup(props) {
+	var justify = {};
+	if (props.right) justify={justifyContent:"flex-end"}
     return (
-        <>
-            <Counter count={Math.floor(props.count/100)%10}/>
-            <Counter count={Math.floor(props.count/10)%10}/>
-            <Counter count={Math.floor(props.count/1)%10}/>
-        </>
+        <div className="CounterGroup" style={justify}>
+            <Counter theme={props.theme} count={Math.floor(props.count/100)%10}/>
+            <Counter theme={props.theme} count={Math.floor(props.count/10)%10}/>
+            <Counter theme={props.theme} count={Math.floor(props.count/1)%10}/>
+        </div>
     );
 }
 
