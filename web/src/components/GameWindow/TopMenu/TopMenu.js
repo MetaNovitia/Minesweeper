@@ -31,7 +31,7 @@ function TopMenu(props) {
 				<button 
 					className={`PlayButton game-background-outer-${props.theme}`} 
 					onClick={restart}>
-						<img src={require(`../../../assets/${props.theme}/play.png`)} />
+						<img alt="" src={require(`../../../assets/${props.theme}/play.png`)} />
 				</button>
             </div>
             <CounterGroup right count={time} theme={props.theme}/>
