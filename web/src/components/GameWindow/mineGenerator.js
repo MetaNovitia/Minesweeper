@@ -33,6 +33,38 @@ export function emptyGrid(height, width) {
 	return grid;
 }
 
+export function checkFlag(grid, state, row, col) {
+
+	var tilesOpened = 0;
+	var flagsAround = 0;
+	var lost = false;
+
+	var m, n, i, j;
+
+	for (m=Math.max(row-1,0); m<Math.min(row+2,grid.length); m++){
+		for (n=Math.max(col-1,0); n<Math.min(col+2,grid[0].length); n++){
+			if (state[m][n] === 3) flagsAround+=1;
+		}
+	}
+
+	if (flagsAround === grid[row][col]) {
+		for (m=Math.max(row-1,0); m<Math.min(row+2,grid.length); m++){
+			for (n=Math.max(col-1,0); n<Math.min(col+2,grid[0].length); n++){
+				if (state[m][n] === 0 ){
+					tilesOpened += openTile(grid, state, m, n);
+					state[m][n] = 1;
+					if (grid[m][n] === -1) {
+						lost = true;
+						grid[m][n] = -2;
+					}
+				}
+			}
+		}
+	}
+
+	return lost ? -1 : tilesOpened ;
+}
+
 export function openTile(grid, state, row, col) {
 	// use bfs to open all 0 tiles and its surrounding
 	if (grid[row][col] !== 0) return 1;

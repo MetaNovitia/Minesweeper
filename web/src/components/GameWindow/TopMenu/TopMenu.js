@@ -11,9 +11,11 @@ function TopMenu(props) {
 
 	// increments timer per second
 	var timerId=0;
-	if(props.gameState==="PLAY") {
+	if(props.gameState==="PLAY" && props.timerData.timerStopped) {
+		props.timerData.timerStopped = false;
 		timerId = setTimeout(() => {
 			props.timerData.time = time;
+			props.timerData.timerStopped = true;
 			setTime(Math.min(time+1,999));
 		}, 1000);
 		props.timerData.timerId = timerId;

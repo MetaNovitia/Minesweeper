@@ -38,9 +38,11 @@ function Grid(props) {
 }
 
 function Cell(props) {
+	const [ref, setRef] = useState(0);
 
 	return (
 		<button className="CellButton"
+			ref={(cell) =>  setRef(cell) }
 			style={{
 			width:`${props.cell_size}px`, 
 			height:`${props.cell_size}px`}}
@@ -57,6 +59,13 @@ function Cell(props) {
 			onMouseEnter={()=>{
 				if(props.mousedown) {
 					props.click(props.row, props.col, 2);
+					props.flush(1-props.temp);
+				}
+				ref.focus();
+			}}
+			onKeyDown={(e)=>{
+				if(e.keyCode === 32) {
+					props.click(props.row, props.col, 3);
 					props.flush(1-props.temp);
 				}
 			}}

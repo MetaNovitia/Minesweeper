@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import './GameWindow.css';
 import TopMenu from './TopMenu/TopMenu'
 import Grid from './Grid/Grid';
-import {randomMineGenerator, emptyGrid, openTile} from './mineGenerator';
+import {randomMineGenerator, emptyGrid, openTile, checkFlag} from './mineGenerator';
 
 const cell_size=20
 
@@ -14,7 +14,8 @@ function GameWindow(props) {
 	const [gameData, setGameData] = useState({
 		time:0, 
 		timerID:0, 
-		safeLeft: props.width*props.height - props.mines
+		safeLeft: props.width*props.height - props.mines,
+		timerStopped: true
 	});
 
 	const [grid, setGrid] = useState(randomMineGenerator(props.height, props.width, props.mines));	
@@ -30,18 +31,23 @@ function GameWindow(props) {
 	function restart() {
 		clearTimeout(gameData.timerId);
 		gameData.safeLeft = props.width*props.height - props.mines;
+		gameData.timerStopped = true;
 		setGrid(randomMineGenerator(props.height, props.width, props.mines));
 		setState(emptyGrid(props.height, props.width));
-		setnumberOfMinesLeft(99);
+		setnumberOfMinesLeft(props.mines);
 		setGameState("IDLE");
 	}
 
-	function lose(row, col) {
-		grid[row][col] = -2;
+	function lose() {
 		var i,j;
 		for(i=0; i<state.length; i++){
 			for(j=0; j<state[i].length; j++) {
-				if (grid[i][j] === -1) state[i][j] = 1;
+				if (grid[i][j] === -1 && grid[i][j] !== 3) 
+					state[i][j] = 1;
+				else if (state[i][j] === 3 && grid[i][j] !== -1) {
+					grid[i][j] = -3;
+					state[i][j] = 1;
+				}
 			}
 		}
 		clearTimeout(gameData.timerId);
@@ -63,16 +69,32 @@ function GameWindow(props) {
 	// clicking on a tile, passed into grid and called 
 	// by each Cell
 	function click(row, col, val) {
-		if (state[row][col]!==1) {
-			state[row][col] = val;
-			if (val === 1) {
-				if (grid[row][col] === -1) lose(row, col);
-				else {
-					gameData.safeLeft -= openTile(grid, state, row, col);
-					if (gameData.safeLeft === 0) win();
-					else if (gameState === "IDLE") setGameState("PLAY");
+		if(gameState === "IDLE" || gameState === "PLAY"){
+			if (state[row][col] === 1) {
+				// testing surrounding
+				if (val === 3){
+					var result = checkFlag(grid, state, row, col);
+					gameData.safeLeft -= result;
+					if (result === -1) lose();
+					else if (gameData.safeLeft === 0) win();
 				}
-
+			} else {
+				if(state[row][col]!==3) {
+					state[row][col] = val;
+					if (val === 1) {
+						if (grid[row][col] === -1){
+							grid[row][col] = -2;
+							lose();
+						}
+						else {
+							gameData.safeLeft -= openTile(grid, state, row, col);
+							if (gameData.safeLeft === 0) win();
+							else if (gameState === "IDLE") setGameState("PLAY");
+						}
+					} else if (val === 3) {
+						setnumberOfMinesLeft(numberOfMinesLeft-1);
+					}
+				} else if(val === 3) state[row][col] = 0;
 			}
 		}
 	}
@@ -84,7 +106,7 @@ function GameWindow(props) {
 					number={numberOfMinesLeft} theme={props.theme}
 					restart={restart}  gameState={gameState} mousedown={mousedown}
 					width={props.width * cell_size} timerData={gameData}/>
-				<Grid 
+				<Grid
 					theme={props.theme} grid={grid} state={state} click={click}
 					height={props.height} width={props.width} cell_size={cell_size}
 					setMines={setnumberOfMinesLeft} mousedown={mousedown} setMousedown={setMousedown}/>
