@@ -2,39 +2,41 @@ import React, { useState }  from 'react';
 import './GameWindow.css';
 import TopMenu from './TopMenu/TopMenu'
 import Grid from './Grid/Grid';
-import {randomMineGenerator, emptyGrid, openTile, checkFlag} from './mineGenerator';
+import Settings from '../Settings/Settings';
+import {randomMineGenerator, emptyGrid, openTile, checkFlag, countSafe} from './mineGenerator';
 
-const cell_size=20
+const cell_size=30
+const initialSetting = {height: 16, width: 30, mines: 99}
+
+/* tile state : 
+	0 = closed
+	1 = opened
+	2 = mousedown
+	3 = flagged
+*/
 
 function GameWindow(props) {
 
+	const gameData = useState({
+		timer: {time:0, timerID:0, timerStopped: true},
+		safeLeft: countSafe(initialSetting),
+		settings:initialSetting
+	})[0];
 	const [mousedown, setMousedown] = useState(false);
-	const [numberOfMinesLeft, setnumberOfMinesLeft] = useState(props.mines);
+	const [numberOfMinesLeft, setnumberOfMinesLeft] = useState(gameData.settings.mines);
 	const [gameState, setGameState] = useState("IDLE");
-	const [gameData, setGameData] = useState({
-		time:0, 
-		timerID:0, 
-		safeLeft: props.width*props.height - props.mines,
-		timerStopped: true
-	});
 
-	const [grid, setGrid] = useState(randomMineGenerator(props.height, props.width, props.mines));	
-	const [state, setState] = useState(emptyGrid(props.height, props.width));	
-	/* tile state : 
-		0 = closed
-		1 = opened
-		2 = mousedown
-		3 = flagged
-	*/
+	const [grid, setGrid] = useState(randomMineGenerator(gameData.settings));	
+	const [state, setState] = useState(emptyGrid(gameData.settings));	
 
 	// restarts game and reset states, moving back to IDLE
 	function restart() {
-		clearTimeout(gameData.timerId);
-		gameData.safeLeft = props.width*props.height - props.mines;
-		gameData.timerStopped = true;
-		setGrid(randomMineGenerator(props.height, props.width, props.mines));
-		setState(emptyGrid(props.height, props.width));
-		setnumberOfMinesLeft(props.mines);
+		clearTimeout(gameData.timer.timerId);
+		gameData.timer = {time:0, timerID:0, timerStopped: true};
+		gameData.safeLeft = countSafe(gameData.settings);
+		setGrid(randomMineGenerator(gameData.settings));
+		setState(emptyGrid(gameData.settings));
+		setnumberOfMinesLeft(gameData.settings.mines);
 		setGameState("IDLE");
 	}
 
@@ -50,7 +52,7 @@ function GameWindow(props) {
 				}
 			}
 		}
-		clearTimeout(gameData.timerId);
+		clearTimeout(gameData.timer.timerId);
 		setGameState("LOST");
 	}
 
@@ -62,7 +64,7 @@ function GameWindow(props) {
 				if (grid[i][j] === -1) state[i][j] = 3;
 			}
 		}
-		clearTimeout(gameData.timerId);
+		clearTimeout(gameData.timer.timerId);
 		setGameState("WIN");
 	}
 
@@ -94,7 +96,10 @@ function GameWindow(props) {
 					} else if (val === 3) {
 						setnumberOfMinesLeft(numberOfMinesLeft-1);
 					}
-				} else if(val === 3) state[row][col] = 0;
+				} else if(val === 3) {
+					state[row][col] = 0;
+					setnumberOfMinesLeft(numberOfMinesLeft+1);
+				}
 			}
 		}
 	}
@@ -102,13 +107,14 @@ function GameWindow(props) {
 	return (
 		<>
 			<div className={`GameWindow game-background-outer-${props.theme}`}>
+				<Settings restart={restart} gameData={gameData}/>
 				<TopMenu 
 					number={numberOfMinesLeft} theme={props.theme}
 					restart={restart}  gameState={gameState} mousedown={mousedown}
-					width={props.width * cell_size} timerData={gameData}/>
+					width={gameData.settings.width * cell_size} timerData={gameData.timer}/>
 				<Grid
 					theme={props.theme} grid={grid} state={state} click={click}
-					height={props.height} width={props.width} cell_size={cell_size}
+					height={gameData.settings.height} width={gameData.settings.width} cell_size={cell_size}
 					setMines={setnumberOfMinesLeft} mousedown={mousedown} setMousedown={setMousedown}/>
 			</div>
 		</>

@@ -4,7 +4,7 @@ import Counter from './Counter/Counter'
 
 function TopMenu(props) {
 
-	const [time, setTime] = useState(0);
+	const [temp, flush] = useState(0);
 	
 	var icon = props.mousedown && (props.gameState==="PLAY" || props.gameState==="IDLE")
 		? "PRESS" : props.gameState;
@@ -14,18 +14,11 @@ function TopMenu(props) {
 	if(props.gameState==="PLAY" && props.timerData.timerStopped) {
 		props.timerData.timerStopped = false;
 		timerId = setTimeout(() => {
-			props.timerData.time = time;
+			props.timerData.time += 1;
 			props.timerData.timerStopped = true;
-			setTime(Math.min(time+1,999));
+			flush(1-temp);
 		}, 1000);
 		props.timerData.timerId = timerId;
-	}
-
-	function restart() {
-		if(props.gameState!=="IDLE"){
-			setTime(0);
-			props.restart();
-		}
 	}
 
     return (
@@ -36,13 +29,17 @@ function TopMenu(props) {
             <div style={{width:"20%"}}>
 				<button 
 					className={`PlayButton game-background-outer-${props.theme}`} 
-					onClick={restart}>
+					onClick={() => {
+						if(props.gameState !== "IDLE"){
+							props.restart(); 
+							flush(1-temp);
+					}}}>
 						<img 
 							alt="" draggable={false}
 							src={require(`../../../assets/${props.theme}/${icon}.png`)} />
 				</button>
             </div>
-            <CounterGroup right count={time} theme={props.theme}/>
+            <CounterGroup right count={props.timerData.time} theme={props.theme}/>
         </div>
     );
 }

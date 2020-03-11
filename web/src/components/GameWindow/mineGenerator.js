@@ -1,10 +1,11 @@
-export function randomMineGenerator(height, width, number) {
+export function randomMineGenerator(settings) {
 
-	var mines = [];
-	var grid = emptyGrid(height, width);
+	const {height, width, mines} = settings;
+
+	var grid = emptyGrid(settings);
 	var i, row, col;
 
-	for (i=0; i<number; i++){
+	for (i=0; i<mines; i++){
 		row = Math.floor(Math.random() * (height));
 		col = Math.floor(Math.random() * (width));
 
@@ -13,7 +14,6 @@ export function randomMineGenerator(height, width, number) {
 			col = Math.floor(Math.random() * (width));
 		}
 
-		mines.push([row,col]);
 		grid[row][col] = -1;
 	}
 
@@ -22,7 +22,8 @@ export function randomMineGenerator(height, width, number) {
 	return grid;
 }
 
-export function emptyGrid(height, width) {
+export function emptyGrid(settings) {
+	const {height, width} = settings;
 	var grid = [];
 	for (var i=0; i<height; i++){
 		grid.push([]);
@@ -39,7 +40,7 @@ export function checkFlag(grid, state, row, col) {
 	var flagsAround = 0;
 	var lost = false;
 
-	var m, n, i, j;
+	var m, n;
 
 	for (m=Math.max(row-1,0); m<Math.min(row+2,grid.length); m++){
 		for (n=Math.max(col-1,0); n<Math.min(col+2,grid[0].length); n++){
@@ -51,8 +52,8 @@ export function checkFlag(grid, state, row, col) {
 		for (m=Math.max(row-1,0); m<Math.min(row+2,grid.length); m++){
 			for (n=Math.max(col-1,0); n<Math.min(col+2,grid[0].length); n++){
 				if (state[m][n] === 0 ){
-					tilesOpened += openTile(grid, state, m, n);
 					state[m][n] = 1;
+					tilesOpened += openTile(grid, state, m, n);
 					if (grid[m][n] === -1) {
 						lost = true;
 						grid[m][n] = -2;
@@ -105,4 +106,9 @@ export function fixCounts(grid) {
 			}
 		}
 	}
+}
+
+export function countSafe(settings){
+	const {height, width, mines} = settings;
+	return (height*width) - mines;
 }

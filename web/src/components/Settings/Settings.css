@@ -1,0 +1,8 @@
+.Settings {
+	position: absolute;
+	top: -30px;
+}
+
+.Settings button {
+	width: 90px;
+}
