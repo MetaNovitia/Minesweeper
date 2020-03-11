@@ -7,10 +7,10 @@ function Grid(props) {
 	var height = props.height * props.cell_size;
 	var width = props.width * props.cell_size;
 	const [temp, flush] = useState(0);
-	const [mousedown, setMousedown] = useState(false);
+
 	return (
 		<div
-			onMouseLeave={()=>setMousedown(false)}
+			onMouseLeave={()=>props.setMousedown(false)}
 			className={`Grid game-background-inner-${props.theme}`}
 			style={{height: `${height}px`, width: `${width}px`}}>
 			{
@@ -18,12 +18,13 @@ function Grid(props) {
 					var cells = [];
 					for(var i=0; i<props.width; i++){
 						var tile = 
-							props.state[ind][i]==1 ? row[i].toString() : 
-							props.state[ind][i]===2 ? "0" : "tile";
+							props.state[ind][i]===1 ? row[i].toString() : 
+							props.state[ind][i]===2 ? "0" :
+							props.state[ind][i]===3 ? "flag" : "tile";
 						cells.push(
 							<Cell
 								flush={flush} temp={temp}
-								setMousedown={setMousedown} mousedown={mousedown}
+								setMousedown={props.setMousedown} mousedown={props.mousedown}
 								click={props.click} row={ind} col={i}
 								tile={tile} theme={props.theme} 
 								key={`row-${ind}-col-${i}`}

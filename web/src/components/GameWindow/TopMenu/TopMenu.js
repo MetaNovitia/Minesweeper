@@ -4,7 +4,10 @@ import Counter from './Counter/Counter'
 
 function TopMenu(props) {
 
-    const [time, setTime] = useState(0);
+	const [time, setTime] = useState(0);
+	
+	var icon = props.mousedown && (props.gameState==="PLAY" || props.gameState==="IDLE")
+		? "PRESS" : props.gameState;
 
 	// increments timer per second
 	var timerId=0;
@@ -34,7 +37,7 @@ function TopMenu(props) {
 					onClick={restart}>
 						<img 
 							alt="" draggable={false}
-							src={require(`../../../assets/${props.theme}/play.png`)} />
+							src={require(`../../../assets/${props.theme}/${icon}.png`)} />
 				</button>
             </div>
             <CounterGroup right count={time} theme={props.theme}/>
