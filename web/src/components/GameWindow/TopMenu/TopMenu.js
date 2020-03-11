@@ -8,17 +8,16 @@ function TopMenu(props) {
 
 	// increments timer per second
 	var timerId=0;
-	if(props.isStarted) {
+	if(props.gameState==="PLAY") {
 		timerId = setTimeout(() => {
+			props.timerData.time = time;
 			setTime(Math.min(time+1,999));
 		}, 1000);
+		props.timerData.timerId = timerId;
 	}
 
-	console.log(timerId);
-
-	function restart(){
-		if(props.isStarted){
-			clearTimeout(timerId);
+	function restart() {
+		if(props.gameState!=="IDLE"){
 			setTime(0);
 			props.restart();
 		}

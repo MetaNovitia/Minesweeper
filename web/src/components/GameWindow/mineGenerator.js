@@ -33,6 +33,25 @@ export function emptyGrid(height, width) {
 	return grid;
 }
 
+export function openTile(grid, state, row, col) {
+	// use bfs to open all 0 tiles and its surrounding
+	if (grid[row][col] !== 0) return;
+
+	var queue = [[row,col]];
+	var i,j,m,n;
+
+	while (queue.length) {
+		[i,j] = queue.shift();
+		for (m=Math.max(i-1,0); m<Math.min(i+2,grid.length); m++){
+			for (n=Math.max(j-1,0); n<Math.min(j+2,grid[0].length); n++){
+				if (grid[m][n] === 0 && state[m][n] === 0) 	
+					queue.push([m,n]);
+				state[m][n] = 1;
+			}
+		}
+	}
+}
+
 export function fixCounts(grid) {
 	for (var row=0; row<grid.length; row++){
 		for(var col=0; col<grid[0].length; col++){
