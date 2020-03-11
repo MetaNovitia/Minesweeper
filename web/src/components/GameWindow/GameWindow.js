@@ -3,7 +3,7 @@ import './GameWindow.css';
 import TopMenu from './TopMenu/TopMenu'
 import Grid from './Grid/Grid';
 import Settings from '../Settings/Settings';
-import {randomMineGenerator, emptyGrid, openTile, checkFlag, countSafe} from './mineGenerator';
+import {randomMineGenerator, emptyGrid, openTile, checkFlag, countSafe, clearSquare} from './mineGenerator';
 
 const cell_size=30
 const initialSetting = {height: 16, width: 30, mines: 99}
@@ -44,7 +44,7 @@ function GameWindow(props) {
 		var i,j;
 		for(i=0; i<state.length; i++){
 			for(j=0; j<state[i].length; j++) {
-				if (grid[i][j] === -1 && grid[i][j] !== 3) 
+				if (grid[i][j] === -1 && state[i][j] !== 3) 
 					state[i][j] = 1;
 				else if (state[i][j] === 3 && grid[i][j] !== -1) {
 					grid[i][j] = -3;
@@ -84,14 +84,17 @@ function GameWindow(props) {
 				if(state[row][col]!==3) {
 					state[row][col] = val;
 					if (val === 1) {
+						if (gameState === "IDLE") {
+							clearSquare(grid, row, col, gameData.safeLeft);
+							setGameState("PLAY");
+						}
+
 						if (grid[row][col] === -1){
 							grid[row][col] = -2;
 							lose();
-						}
-						else {
+						} else {
 							gameData.safeLeft -= openTile(grid, state, row, col);
 							if (gameData.safeLeft === 0) win();
-							else if (gameState === "IDLE") setGameState("PLAY");
 						}
 					} else if (val === 3) {
 						setnumberOfMinesLeft(numberOfMinesLeft-1);

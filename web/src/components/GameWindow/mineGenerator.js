@@ -1,21 +1,47 @@
-export function randomMineGenerator(settings) {
+function putRandomMine(grid) {
+	var height = grid.length;
+	var width = grid[0].length;
+	var row = Math.floor(Math.random() * (height));
+	var col = Math.floor(Math.random() * (width));
 
-	const {height, width, mines} = settings;
-
-	var grid = emptyGrid(settings);
-	var i, row, col;
-
-	for (i=0; i<mines; i++){
+	while (grid[row][col]===-1) {
 		row = Math.floor(Math.random() * (height));
 		col = Math.floor(Math.random() * (width));
-
-		while (grid[row][col]===-1) {
-			row = Math.floor(Math.random() * (height));
-			col = Math.floor(Math.random() * (width));
-		}
-
-		grid[row][col] = -1;
 	}
+	grid[row][col] = -1;
+}
+
+export function clearSquare(grid, row, col, safeLeft) {
+	var m,n;
+	var safe = [];
+	var mines = [];
+
+	if (grid[row][col]===-1) mines.push([row,col])
+	for (m=Math.max(row-1,0); m<Math.min(row+2,grid.length); m++){
+		for (n=Math.max(col-1,0); n<Math.min(col+2,grid[0].length); n++){
+			if(grid[m][n]!==-1) safe.push([m,n]);
+			else if (!(m===row && n===col)) mines.push([m,n]);
+			grid[m][n] = -1;
+		}
+	}
+
+	while ((safeLeft - safe.length) && mines.length) {
+		safe.push(mines.shift());
+		putRandomMine(grid);
+	}
+
+	while (safe.length) {
+		[m,n] = safe.pop();
+		grid[m][n] = 0;
+	}
+
+	fixCounts(grid);
+}
+
+export function randomMineGenerator(settings) {
+
+	var grid = emptyGrid(settings);
+	for (var i=0; i<settings.mines; i++) putRandomMine(grid);
 
 	fixCounts(grid);
 	
