@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "63cb28c628a0274fce936bb63f7f0289",
+    "revision": "243e4bc83cdb891ad238104499ab73f3",
     "url": "/Minesweeper/index.html"
   },
   {
-    "revision": "fbeae4db9ba67dfa4ddb",
-    "url": "/Minesweeper/static/css/main.79862239.chunk.css"
+    "revision": "70293e7d7a3293556bff",
+    "url": "/Minesweeper/static/css/main.7c67c518.chunk.css"
   },
   {
     "revision": "8e99d8e747d9eea5bc75",
@@ -16,11 +16,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Minesweeper/static/js/2.92fecf48.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fbeae4db9ba67dfa4ddb",
-    "url": "/Minesweeper/static/js/main.f813f32c.chunk.js"
+    "revision": "70293e7d7a3293556bff",
+    "url": "/Minesweeper/static/js/main.d9128003.chunk.js"
   },
   {
     "revision": "bd242014ca7ad1b7ddca",
     "url": "/Minesweeper/static/js/runtime-main.4eff02b5.js"
+  },
+  {
+    "revision": "4ff1f710e2031c8877fa8bb316e4cf3d",
+    "url": "/Minesweeper/static/media/settings.4ff1f710.png"
   }
 ]);
