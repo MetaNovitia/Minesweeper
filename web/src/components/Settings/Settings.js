@@ -1,6 +1,6 @@
 import React from 'react';
 import './Settings.css';
-import {countSafe} from '../GameWindow/mineGenerator';
+// import {countSafe} from '../GameWindow/mineGenerator';
 
 const difficulties = {
 	beginner: {height: 9, width: 9, mines: 10},
