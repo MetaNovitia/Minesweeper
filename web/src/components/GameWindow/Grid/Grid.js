@@ -10,7 +10,7 @@ function Grid(props) {
 
 	return (
 		<div
-			onMouseLeave={()=>props.setMousedown(false)}
+			onMouseLeave={()=>props.setMousedown(0)}
 			className={`Grid game-background-inner-${props.theme}`}
 			style={{height: `${height}px`, width: `${width}px`}}>
 			{
@@ -39,6 +39,7 @@ function Grid(props) {
 
 function Cell(props) {
 	const [ref, setRef] = useState(0);
+	const touch = useState({avail: false})[0];
 
 	return (
 		<button className="CellButton"
@@ -46,15 +47,39 @@ function Cell(props) {
 			style={{
 			width:`${props.cell_size}px`, 
 			height:`${props.cell_size}px`}}
+			onContextMenu={(ev) => {
+				ev.preventDefault();
+				props.click(props.row, props.col, 3);
+				props.flush(1-props.temp);
+				return false;
+			}}
 			onMouseUp={()=> {
-				if(props.mousedown){
-					props.setMousedown(false);
+				if(props.mousedown && !touch.avail) {
+					props.setMousedown(0);
 					props.click(props.row, props.col, 1);
 				}
 			}}
-			onMouseDown={()=> {
-				props.setMousedown(true);
+			onTouchStart={()=> {
+				touch.avail = true;
+				props.setMousedown(Date.now());
 				props.click(props.row, props.col, 2);
+			}}
+			onTouchEnd={()=> {
+				if(props.mousedown) {
+					if(Date.now() - props.mousedown < 500){
+						props.setMousedown(0);
+						props.click(props.row, props.col, 1);
+					} else {
+						props.click(props.row, props.col, 3);
+						props.flush(1-props.temp);
+					}
+				}
+			}}
+			onMouseDown={()=> {
+				if(!touch.avail){
+					props.setMousedown(Date.now());
+					props.click(props.row, props.col, 2);
+				}
 			}}
 			onMouseEnter={()=>{
 				if(props.mousedown) {

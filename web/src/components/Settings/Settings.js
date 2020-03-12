@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Settings.css';
+import '../GameWindow/GameWindow.css';
 // import {countSafe} from '../GameWindow/mineGenerator';
 
 const difficulties = {
@@ -10,14 +11,22 @@ const difficulties = {
 
 function App(props) {
 
+	const [diffSelected, selectDiff] = useState("expert");
+
 	return (
 		<div className="Settings">
 			{
 				Object.keys(difficulties).map((val)=>{
-					return <button key={val} onClick={()=>{
-						props.gameData.settings = difficulties[val];
-						props.restart();
-					}}>{val}</button>;
+					var className = `game-background-${
+						val===diffSelected ? "inner" : "outer"}-${props.theme}`;
+					return <button 
+						className={className} 
+						key={val} 
+						onClick={()=>{
+							props.gameData.settings = difficulties[val];
+							selectDiff(val);
+							props.restart();
+						}}>{val}</button>;
 				})
 			}
 		</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import GameWindow from './components/GameWindow/GameWindow';
 import './App.css';
 

@@ -23,7 +23,7 @@ function GameWindow(props) {
 		safeLeft: countSafe(initialSetting),
 		settings:initialSetting
 	})[0];
-	const [mousedown, setMousedown] = useState(false);
+	const [mousedown, setMousedown] = useState(0);
 	const [numberOfMinesLeft, setnumberOfMinesLeft] = useState(gameData.settings.mines);
 	const [gameState, setGameState] = useState("IDLE");
 	
@@ -114,7 +114,7 @@ function GameWindow(props) {
 	return (
 		<>
 			<div className={`GameWindow game-background-outer-${props.theme}`}>
-				<Settings restart={restart} gameData={gameData}/>
+				<Settings restart={restart} gameData={gameData} theme={props.theme}/>
 				<TopMenu 
 					number={numberOfMinesLeft} theme={props.theme}
 					restart={restart}  gameState={gameState} mousedown={mousedown}
