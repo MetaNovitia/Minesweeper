@@ -6,7 +6,7 @@ export function parseCommand(command) {
 				"\\diff [x]: change difficulty"
 			], []]
 		}
-		return [["No such command"],[]]
+		return [["No such command!!"],[]]
 	}
 	return [[],[]]
 }
