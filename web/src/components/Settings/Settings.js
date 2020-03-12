@@ -14,7 +14,7 @@ function App(props) {
 		<div className="Settings">
 			{
 				Object.keys(difficulties).map((val)=>{
-					return <button onClick={()=>{
+					return <button key={val} onClick={()=>{
 						props.gameData.settings = difficulties[val];
 						props.restart();
 					}}>{val}</button>;

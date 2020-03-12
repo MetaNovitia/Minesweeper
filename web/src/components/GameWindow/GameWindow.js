@@ -5,7 +5,7 @@ import Grid from './Grid/Grid';
 import Settings from '../Settings/Settings';
 import {randomMineGenerator, emptyGrid, openTile, checkFlag, countSafe, clearSquare} from './mineGenerator';
 
-const cell_size=30
+const cell_size=20
 const initialSetting = {height: 16, width: 30, mines: 99}
 
 /* tile state : 
