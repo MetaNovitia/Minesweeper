@@ -1,5 +1,4 @@
 .GameWindow {
-    background-color: #808080;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -48,22 +47,26 @@
 }
 
 .PlayButton:active {
-    background-color: gray;
-    border: 2px solid white;
-    border-top-color: rgb(51, 45, 45);
-    border-left-color: rgb(51, 45, 45);
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-out);
+    border-top-color: var(--color-in);
+    border-left-color: var(--color-in);
 }
 
 .game-background-outer-original {
-    background-color: gray;
-    border: 2px solid white;
-    border-right-color: rgb(51, 45, 45);
-    border-bottom-color: rgb(51, 45, 45);
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-out);
+    border-right-color: var(--color-in);
+    border-bottom-color: var(--color-in);
 }
 
 .game-background-inner-original {
-    background-color: gray;
-    border: 2px solid white;
-    border-top-color: rgb(51, 45, 45);
-    border-left-color: rgb(51, 45, 45);
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-out);
+    border-top-color: var(--color-in);
+    border-left-color: var(--color-in);
+}
+
+.Container {
+	display: flex;
 }

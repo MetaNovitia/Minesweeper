@@ -1,0 +1,82 @@
+.BotRoom {
+	width: 150px;
+	padding: 15px;
+	margin:0;
+	margin-left: 20px;
+	position: fixed;
+	top: 20px;
+	right: 20px;
+}
+
+.BotChat {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: column;
+}
+
+.ChatLogContainer {
+	height: calc(100vh - 100px);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	overflow-y: visible;
+}
+
+.ChatLog {
+	margin: 0;
+	padding: 5px;
+	overflow-y: scroll;
+	transform-origin: bottom;
+	scrollbar-width: none;
+}
+
+.ChatLog::-webkit-scrollbar {
+	display: none;
+}
+
+.ChatLog li {
+	margin-bottom: 5px;
+	padding: 7px;
+	overflow-wrap: break-word;
+	max-width: calc(100% - 14px);
+	width: fit-content;
+	white-space: pre-wrap;
+}
+
+.BotText {
+	font-family: var(--bot-font);
+	font-size: var(--bot-fontsize);
+	text-align: left;
+	max-width: calc(100%-20px);
+	background-color: var(--bot-color);
+	color: var(--bot-fontcolor);
+	padding: 4px;
+	border-radius: 3px;
+	word-wrap: normal;
+}
+
+.UserText {
+	font-family: var(--user-font);
+	font-size: var(--user-fontsize);
+	text-align: left;
+	max-width: calc(100%-20px);
+	background-color: var(--user-color);
+	color: var(--user-fontcolor);
+	padding: 4px;
+	border-radius: 3px;
+	word-wrap: normal;
+}
+
+.MessageBox {
+	background-color: var(--color-out);
+	height: 20px;
+	margin:0;
+	padding-bottom:0;
+	padding-top:0;
+	outline: none;
+	font-family: var(--user-font);
+	font-size: var(--user-fontsize);
+}

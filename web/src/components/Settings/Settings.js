@@ -9,7 +9,7 @@ const difficulties = {
 	expert: {height: 16, width: 30, mines: 99}
 }
 
-function App(props) {
+function Settings(props) {
 
 	const [diffSelected, selectDiff] = useState("expert");
 
@@ -33,4 +33,4 @@ function App(props) {
 	);
 }
 
-export default App;
+export default Settings;

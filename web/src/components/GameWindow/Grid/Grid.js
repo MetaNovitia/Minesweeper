@@ -66,8 +66,8 @@ function Cell(props) {
 			}}
 			onTouchEnd={()=> {
 				if(props.mousedown) {
+					props.setMousedown(0);
 					if(Date.now() - props.mousedown < 500){
-						props.setMousedown(0);
 						props.click(props.row, props.col, 1);
 					} else {
 						props.click(props.row, props.col, 3);

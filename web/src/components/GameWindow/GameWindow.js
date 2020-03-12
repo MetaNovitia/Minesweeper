@@ -4,6 +4,7 @@ import TopMenu from './TopMenu/TopMenu'
 import Grid from './Grid/Grid';
 import Settings from '../Settings/Settings';
 import {randomMineGenerator, emptyGrid, openTile, checkFlag, countSafe, clearSquare} from './mineGenerator';
+import BotRoom from './Bot/BotRoom';
 
 const cell_size_init=20;
 const min_width=250;
@@ -112,7 +113,7 @@ function GameWindow(props) {
 	}
 
 	return (
-		<>
+		<div className={"Container"}>
 			<div className={`GameWindow game-background-outer-${props.theme}`}>
 				<Settings restart={restart} gameData={gameData} theme={props.theme}/>
 				<TopMenu 
@@ -124,7 +125,9 @@ function GameWindow(props) {
 					height={gameData.settings.height} width={gameData.settings.width} cell_size={cell_size}
 					setMines={setnumberOfMinesLeft} mousedown={mousedown} setMousedown={setMousedown}/>
 			</div>
-		</>
+
+			<BotRoom theme={props.theme}/>
+		</div>
 	);
 }
 

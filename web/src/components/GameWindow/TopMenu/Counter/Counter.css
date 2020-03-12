@@ -1,12 +1,12 @@
 .Segment-On {
-    background-color: red;
-    border: 1px solid rgb(196, 28, 28);
+    background-color: var(--color-counter-on);
+    border: 1px solid var(--color-counter-on);
     border-radius: 50%;
 }
 
 .Segment-Off {
     background-color: transparent;
-    border: 2px solid rgb(90, 23, 23);
+    border: 2px solid var(--color-counter-off);
     border-radius: 50%;
 }
 
@@ -14,7 +14,7 @@
     width: 30px;
     height: 50px;
     position: relative;
-    background-color: black;
+    background-color: var(--color-counter-bg);
 }
 
 

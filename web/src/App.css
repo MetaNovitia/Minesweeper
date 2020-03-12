@@ -5,5 +5,23 @@
     justify-items: center;
     align-items: center;
     justify-content: center;
-    align-content: center;
+	align-content: center;
 }
+
+:root {
+	--color-in: rgb(51, 45, 45);
+	--color-out: white;
+	--color-bg: gray;
+	--color-text: white;
+	--color-counter-on: rgb(221, 17, 17);
+	--color-counter-off: rgb(102, 7, 7);
+	--color-counter-bg: black;
+	--user-font: monospace ;
+	--user-fontsize: 10px;
+	--user-color: rgb(49, 46, 46);
+	--user-fontcolor: white;
+	--bot-font: monospace ;
+	--bot-fontsize: 10px;
+	--bot-color: rgb(112, 91, 91);
+	--bot-fontcolor: white;
+  }
