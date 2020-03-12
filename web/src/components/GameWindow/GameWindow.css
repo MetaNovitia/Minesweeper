@@ -23,6 +23,7 @@
 .CounterGroup {
 	margin: 5px;
 	width: 40%;
+	min-width: 90px;
 	flex-direction: row;
 	display: flex;
 }

@@ -5,8 +5,9 @@ import Grid from './Grid/Grid';
 import Settings from '../Settings/Settings';
 import {randomMineGenerator, emptyGrid, openTile, checkFlag, countSafe, clearSquare} from './mineGenerator';
 
-const cell_size=20
-const initialSetting = {height: 16, width: 30, mines: 99}
+const cell_size_init=20;
+const min_width=250;
+const initialSetting = {height: 16, width: 30, mines: 99};
 
 /* tile state : 
 	0 = closed
@@ -25,6 +26,8 @@ function GameWindow(props) {
 	const [mousedown, setMousedown] = useState(false);
 	const [numberOfMinesLeft, setnumberOfMinesLeft] = useState(gameData.settings.mines);
 	const [gameState, setGameState] = useState("IDLE");
+	
+	var cell_size = Math.max(cell_size_init, Math.ceil(min_width/gameData.settings.width));
 
 	const [grid, setGrid] = useState(randomMineGenerator(gameData.settings));	
 	const [state, setState] = useState(emptyGrid(gameData.settings));	
