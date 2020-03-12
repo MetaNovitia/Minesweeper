@@ -30,10 +30,9 @@ function TopMenu(props) {
 				<button 
 					className={`PlayButton game-background-outer-${props.theme}`} 
 					onClick={() => {
-						if(props.gameState !== "IDLE"){
-							props.restart(); 
-							flush(1-temp);
-					}}}>
+						props.restart(); 
+						flush(1-temp);
+					}}>
 						<img 
 							alt="" draggable={false}
 							src={require(`../../../assets/${props.theme}/${icon}.png`)} />

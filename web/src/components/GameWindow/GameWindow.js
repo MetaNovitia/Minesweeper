@@ -65,6 +65,7 @@ function GameWindow(props) {
 			}
 		}
 		clearTimeout(gameData.timer.timerId);
+		setnumberOfMinesLeft(0);
 		setGameState("WIN");
 	}
 
