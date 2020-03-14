@@ -39,7 +39,7 @@ function Grid(props) {
 
 function Cell(props) {
 	const [ref, setRef] = useState(0);
-	const touch = useState({avail: false})[0];
+	const touch = useState({avail: false, context: false})[0];
 
 	return (
 		<button className="CellButton"
@@ -50,14 +50,15 @@ function Cell(props) {
 			onContextMenu={(ev) => {
 				ev.preventDefault();
 				props.click(props.row, props.col, 3);
-				props.flush(1-props.temp);
+				touch.context = true;
 				return false;
 			}}
 			onMouseUp={()=> {
-				if(props.mousedown && !touch.avail) {
-					props.setMousedown(0);
+				if(props.mousedown && !touch.avail && !touch.context) {
 					props.click(props.row, props.col, 1);
 				}
+				touch.context = true;
+				props.setMousedown(0);
 			}}
 			onTouchStart={()=> {
 				touch.avail = true;
@@ -71,7 +72,6 @@ function Cell(props) {
 						props.click(props.row, props.col, 1);
 					} else {
 						props.click(props.row, props.col, 3);
-						props.flush(1-props.temp);
 					}
 				}
 			}}
@@ -97,7 +97,6 @@ function Cell(props) {
 			onMouseLeave={()=> {
 				if(props.mousedown) {
 					props.click(props.row, props.col, 0);
-					props.flush(1-props.temp);
 				}
 			}}>
 			<img 

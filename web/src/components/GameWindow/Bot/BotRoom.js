@@ -21,9 +21,9 @@ function BotRoom(props) {
 	console.log(temp, ref)
 
 	function keyPress(evt) {
-		if(evt.keyCode===13) {
+		if(evt.keyCode===13 && evt.target.value!=="") {
 			chatlog.push([evt.target.value, "User"]);
-			
+
 			var [replies, data] = parseCommand(evt.target.value);
 			for (var i in replies) chatlog.push([replies[i], "Bot"])
 
