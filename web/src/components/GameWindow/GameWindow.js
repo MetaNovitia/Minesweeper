@@ -8,7 +8,7 @@ import BotRoom from './Bot/BotRoom';
 
 const cell_size_init=20;
 const min_width=250;
-const initialSetting = {height: 16, width: 30, mines: 99};
+const initialSetting = {height: 16, width: 30, mines: 99, hint:false, show:false};
 
 /* tile state : 
 	0 = closed
@@ -32,6 +32,11 @@ function GameWindow(props) {
 
 	const [grid, setGrid] = useState(randomMineGenerator(gameData.settings));	
 	const [state, setState] = useState(emptyGrid(gameData.settings));	
+	const [temp, flush] = useState(false);	
+
+	function refresh() {
+		flush(!temp);
+	}
 
 	// restarts game and reset states, moving back to IDLE
 	function restart() {
@@ -122,11 +127,13 @@ function GameWindow(props) {
 					width={gameData.settings.width * cell_size} timerData={gameData.timer}/>
 				<Grid
 					theme={props.theme} grid={grid} state={state} click={click}
-					height={gameData.settings.height} width={gameData.settings.width} cell_size={cell_size}
+					settings={gameData.settings} cell_size={cell_size}
 					setMines={setnumberOfMinesLeft} mousedown={mousedown} setMousedown={setMousedown}/>
 			</div>
 
-			<BotRoom theme={props.theme}/>
+			<BotRoom 
+				theme={props.theme} settings={gameData.settings} 
+				flush={refresh}/>
 		</div>
 	);
 }

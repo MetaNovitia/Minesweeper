@@ -17,19 +17,19 @@ function BotRoom(props) {
 	const [chatlog, setChatLog] = useState([]);
 	const [temp, flush] = useState(false);
 	const [ref, setRef] = useState(false);
-
-	console.log(temp, ref)
+	var i, key;
 
 	function keyPress(evt) {
 		if(evt.keyCode===13 && evt.target.value!=="") {
 			chatlog.push([evt.target.value, "User"]);
 
-			var [replies, data] = parseCommand(evt.target.value);
-			for (var i in replies) chatlog.push([replies[i], "Bot"])
+			var [replies, gameset, botset] = parseCommand(evt.target.value);
+			for (i in replies) 		chatlog.push([replies[i], "Bot"]);
+			for (key in gameset) 	props.settings[key] = gameset[key];
+			for (key in botset) 	botsettings[key] = botset[key];
 
 			evt.target.value = "";
-
-
+			if (Object.keys(gameset).length) props.flush();
 			flush(true);
 		}
 	}

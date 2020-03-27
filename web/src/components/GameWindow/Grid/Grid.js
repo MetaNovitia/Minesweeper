@@ -4,8 +4,8 @@ import './Grid.css';
 
 function Grid(props) {
 
-	var height = props.height * props.cell_size;
-	var width = props.width * props.cell_size;
+	var height = props.settings.height * props.cell_size;
+	var width = props.settings.width * props.cell_size;
 	const [temp, flush] = useState(0);
 
 	return (
@@ -16,13 +16,15 @@ function Grid(props) {
 			{
 				props.grid.map((row, ind)=> {
 					var cells = [];
-					for(var i=0; i<props.width; i++){
+					for(var i=0; i<props.settings.width; i++){
 						var tile = 
 							props.state[ind][i]===1 ? row[i].toString() : 
 							props.state[ind][i]===2 ? "0" :
 							props.state[ind][i]===3 ? "flag" : "tile";
 						cells.push(
 							<Cell
+								hint={props.settings.hint} show={props.settings.show}
+								value={row[i].toString()}
 								flush={flush} temp={temp}
 								setMousedown={props.setMousedown} mousedown={props.mousedown}
 								click={props.click} row={ind} col={i}
@@ -99,6 +101,10 @@ function Cell(props) {
 					props.click(props.row, props.col, 0);
 				}
 			}}>
+			<div className={
+				
+				(props.show && props.value==="-1") ? "SBomb" : ""
+			}/>
 			<img 
 				className="Cell"
 				alt="" draggable={false} 
