@@ -59,7 +59,7 @@ function Cell(props) {
 				if(props.mousedown && !touch.avail && !touch.context) {
 					props.click(props.row, props.col, 1);
 				}
-				touch.context = true;
+				touch.context = false;
 				props.setMousedown(0);
 			}}
 			onTouchStart={()=> {
